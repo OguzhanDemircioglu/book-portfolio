@@ -137,14 +137,20 @@ button {
   height: 10rem;
   border-radius: 50%;
   border: 0.3rem solid var(--main-color);
-  background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.85), rgba(197, 226, 255, 0.9) 48%, rgba(59, 166, 255, 0.26) 100%),
-    linear-gradient(135deg, #eff6ff, #dbeafe);
+  overflow: hidden;
+  background: #dbeafe;
   color: var(--main-strong);
   font-family: "Space Grotesk", sans-serif;
   font-size: 3rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+}
+
+.avatar-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .profile-page h1,
@@ -547,11 +553,9 @@ button {
 }
 
 .preview-content {
-  display: grid;
-  grid-template-columns: 6.5rem 1fr;
-  gap: 0.8rem;
-  padding: 0.8rem;
+  display: flex;
   height: calc(100% - 1.75rem);
+  overflow: hidden;
 }
 
 .preview-sidebar,
@@ -802,6 +806,41 @@ button {
   .skills-box {
     grid-template-columns: 1fr;
   }
+}
+
+/* ── Language switcher ── */
+.lang-switch {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.4rem;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(15, 23, 36, 0.75);
+  border: 0.125rem solid rgba(59, 166, 255, 0.35);
+  border-radius: 2rem;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.2s;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.lang-switch:hover {
+  border-color: rgba(59, 166, 255, 0.7);
+}
+
+.lang-active {
+  color: var(--main-color);
+}
+
+.lang-divider {
+  color: rgba(255, 255, 255, 0.2);
 }
 
 @media (max-width: 720px) {

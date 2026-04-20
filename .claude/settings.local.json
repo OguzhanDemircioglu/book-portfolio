@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp /d/ben.png D:/Projeler/book-portfolio/public/ben.png)",
+      "Bash(cp /d/petshop.png D:/Projeler/book-portfolio/public/petshop.png)",
+      "mcp__3cc9b439-da94-41b8-bd9d-1e608aac6c3a__check_domain_availability_and_price",
+      "WebSearch",
+      "WebFetch(domain:www.cloudflare.com)",
+      "WebFetch(domain:cfdomainpricing.com)"
+    ]
+  }
+}

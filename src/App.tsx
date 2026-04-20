@@ -1,151 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
+import { translations, type Lang } from './translations'
 
 type RightPageId = 'turn-1' | 'turn-2' | 'turn-3' | 'turn-4' | 'turn-5'
 
-const profile = {
-  name: 'Oguzhan Turgut Demircioglu',
-  title: 'Software Developer',
-  summary:
-    'Backend-focused developer with 5+ years of experience. I build reliable business software with Java, Spring Boot, .NET and React.',
-  email: 'oguzhanturgut611@gmail.com',
-  phone: '+90 552 773 59 94',
-  location: 'Ankara, Turkiye',
-  linkedin: 'https://www.linkedin.com/in/oguzhan-demircioglu/',
-  github: 'https://github.com/OguzhanDemircioglu',
+function detectLang(): Lang {
+  const lang = navigator.language || ''
+  return lang.toLowerCase().startsWith('tr') ? 'tr' : 'en'
 }
-
-const experiences = [
-  {
-    period: '12.2024 - 01.2026',
-    role: 'Software Developer - Global PBX',
-    text: 'Worked on a Web Phone platform with Java 17, Spring Boot, React, Redis, Elasticsearch and microservices.',
-  },
-  {
-    period: '07.2024 - 12.2024',
-    role: 'Software Developer - Basarsoft',
-    text: 'Built GIS-based stock, vehicle and employee tracking workflows with .NET 7, React, Ocelot and Docker.',
-  },
-  {
-    period: '10.2023 - 07.2024',
-    role: 'Software Developer - KolaySoft',
-    text: 'Worked on e-invoicing systems across Spring Boot portal services, React frontend, .NET desktop tools and REST/SOAP APIs.',
-  },
-  {
-    period: '11.2021 - 10.2023',
-    role: 'Software Developer - Etiya',
-    text: 'Maintained legacy SOAP/XML flows and contributed to Spring Boot REST modernization, Angular frontend and Oracle PL/SQL work.',
-  },
-]
-
-const education = [
-  {
-    period: '2014 - 2019',
-    title: 'Turk Hava Kurumu University',
-    text: 'Electrical and Electronics Engineering (English). Built a strong technical foundation in systems, analysis and problem solving.',
-  },
-  {
-    period: 'Core Focus',
-    title: 'Software Development',
-    text: 'Focused on backend development, APIs, microservices, database work and practical frontend delivery with React.',
-  },
-  {
-    period: 'Key Topics',
-    title: 'Engineering Mindset',
-    text: 'Comfortable with enterprise systems, legacy modernization, integrations, communication services and product-oriented web applications.',
-  },
-  {
-    period: 'Language',
-    title: 'English',
-    text: 'Upper intermediate (B2). Able to work with technical documentation and international teams.',
-  },
-]
-
-const summaryBlocks = [
-  {
-    label: 'Experience',
-    value: '5+ years',
-  },
-  {
-    label: 'Main stack',
-    value: 'Java, Spring Boot, .NET, React',
-  },
-  {
-    label: 'Domains',
-    value: 'VoIP, CRM, GIS, e-invoicing',
-  },
-]
-
-const workplaceProjects = [
-  {
-    title: 'Web Phone (VoIP Platform) - Global PBX',
-    stack: 'Java 17, Spring Boot, React, Redis, Elasticsearch, gRPC, Docker',
-    details: [
-      'Worked on a large microservice-based communication platform for web, mobile and desktop clients.',
-      'Took responsibility for 3 microservices and supported React web frontend maintenance.',
-      'Contributed to messaging, video call and AI chatbot related features.',
-    ],
-  },
-  {
-    title: 'GIS-Based Stock Management - Basarsoft',
-    stack: '.NET 7, React, Ocelot, Docker, Oracle',
-    details: [
-      'Worked on stock, vehicle, meeting room and employee location tracking modules.',
-      'Maintained a gateway-based microservice structure with Ocelot.',
-      'Contributed to both backend workflows and React frontend screens.',
-    ],
-  },
-  {
-    title: 'E-Invoicing Systems - KolaySoft',
-    stack: 'Java, Spring Boot, React, .NET, PostgreSQL, MSSQL, REST, SOAP',
-    details: [
-      'Delivered features across portal services, frontend and desktop data collection tools.',
-      'Worked on reporting and invoice data flows connected to legal reporting standards.',
-      'Contributed across 3 related projects in the same business domain.',
-    ],
-  },
-  {
-    title: 'CRM Order Management - Etiya',
-    stack: 'Java, Spring Boot, Angular, SOAP, Oracle PL/SQL, JSP',
-    details: [
-      'Worked on Turk Telekom CRM and order management related systems.',
-      'Maintained legacy SOAP/XML structures and supported REST modernization.',
-      'Contributed across backend, frontend and database layers.',
-    ],
-  },
-]
-
-const ownProjects = [
-  {
-    title: 'Pet Commerce Website',
-    link: 'https://pet-eight-rho.vercel.app',
-    stack: 'React, Vite, Spring Boot, payment flow, admin tools',
-    description:
-      'A product-focused commerce website I am building to sell. It already includes catalog, cart, login, orders, payments and admin-side features.',
-    details: [
-      'Catalog, product detail, cart and order flow',
-      'Login, profile and notification features',
-      'Spring Boot backend with admin operations',
-      'Payment and Telegram notification integration',
-    ],
-    note:
-      'This project is not only a demo. It has potential to become a reusable starter product for niche stores.',
-  },
-]
-
-const workplaceProjectPages = [
-  workplaceProjects.slice(0, 1),
-  workplaceProjects.slice(1, 2),
-  workplaceProjects.slice(2, 3),
-  workplaceProjects.slice(3, 4),
-]
 
 export default function App() {
   const pageIds: RightPageId[] = ['turn-1', 'turn-2', 'turn-3', 'turn-4', 'turn-5']
   const [turnedPages, setTurnedPages] = useState<RightPageId[]>(pageIds)
   const [coverOpen, setCoverOpen] = useState(false)
   const [coverHidden, setCoverHidden] = useState(false)
+  const [lang, setLang] = useState<Lang>(detectLang)
   const timeoutIds = useRef<number[]>([])
+
+  const t = translations[lang]
 
   const createZIndexMap = (turned: boolean) =>
     pageIds.reduce(
@@ -207,70 +79,74 @@ export default function App() {
     timeoutIds.current.push(timeoutId)
   }
 
+  const toggleLang = () => setLang((l) => (l === 'en' ? 'tr' : 'en'))
+
   return (
     <main className="scene">
+      <button className="lang-switch" type="button" onClick={toggleLang}>
+        <h2 className={lang === 'en' ? 'lang-active' : ''}>EN</h2>
+        <span className="lang-divider">|</span>
+        <h2 className={lang === 'tr' ? 'lang-active' : ''}>TR</h2>
+      </button>
+
       <div className="wrapper">
         <div className="cover cover-left" />
         <div className={`cover cover-right ${coverOpen ? 'turn' : ''} ${coverHidden ? 'cover-hidden' : ''}`} />
 
         <div className="book">
+          {/* ── Profile (left page) ── */}
           <section className="book-page page-left">
             <div className="profile-page">
-              <div className="avatar-circle">OD</div>
-              <h1>{profile.name}</h1>
-              <h3>{profile.title}</h3>
+              <div className="avatar-circle">
+                <img src="/ben.png" alt="Oguzhan" />
+              </div>
+              <h1>{t.profile.name}</h1>
+              <h3>{t.profile.title}</h3>
 
               <div className="social-media">
-                <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+                <a href={t.profile.github} target="_blank" rel="noreferrer" aria-label="GitHub">
                   <i className="bx bxl-github" />
                 </a>
-                <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                <a href={t.profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
                   <i className="bx bxl-linkedin-square" />
                 </a>
-                <a href={`mailto:${profile.email}`} aria-label="Email">
+                <a href={`mailto:${t.profile.email}`} aria-label="Email">
                   <i className="bx bx-envelope" />
                 </a>
               </div>
 
-              <p>{profile.summary}</p>
+              <p>{t.profile.summary}</p>
               <p className="profile-meta">
-                {profile.location}
+                {t.profile.location}
                 <span>|</span>
-                {profile.phone}
+                {t.profile.phone}
               </p>
 
               <div className="btn-box">
-                <a
-                  href="/resume.pdf"
-                  className="btn"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View CV
+                <a href="/resume.pdf" className="btn" target="_blank" rel="noreferrer">
+                  {t.nav.viewCV}
                 </a>
                 <button className="btn ghost-btn" type="button" onClick={openContact}>
-                  Contact
+                  {t.nav.contact}
                 </button>
               </div>
             </div>
           </section>
 
+          {/* ── Page 1 / 2: Summary + Education ── */}
           <section
             className={`book-page page-right ${isTurned('turn-1') ? 'turn' : ''}`}
             id="turn-1"
             style={{ zIndex: pageZIndices['turn-1'] }}
           >
             <div className="page-front">
-              <h1 className="title">Summary</h1>
+              <h1 className="title">{t.summary.pageTitle}</h1>
 
               <div className="summary-page">
-                <p className="summary-text">
-                  Software developer focused on backend systems with solid frontend support experience. I mainly build
-                  enterprise applications, integration-heavy services and web products that need to work reliably.
-                </p>
+                <p className="summary-text">{t.summary.text}</p>
 
                 <div className="summary-grid">
-                  {summaryBlocks.map((item) => (
+                  {t.summary.blocks.map((item) => (
                     <div className="summary-card" key={item.label}>
                       <span>{item.label}</span>
                       <strong>{item.value}</strong>
@@ -279,9 +155,9 @@ export default function App() {
                 </div>
 
                 <div className="summary-notes">
-                  <p>Experienced with monolithic and microservice-based systems.</p>
-                  <p>Worked across Java, Spring Boot, .NET, React, Oracle and PostgreSQL environments.</p>
-                  <p>Interested in both internal business software and sellable web products.</p>
+                  {t.summary.notes.map((note) => (
+                    <p key={note}>{note}</p>
+                  ))}
                 </div>
               </div>
 
@@ -292,10 +168,10 @@ export default function App() {
             </div>
 
             <div className="page-back">
-              <h1 className="title">Education</h1>
+              <h1 className="title">{t.education.pageTitle}</h1>
 
               <div className="workeduc-box">
-                {education.map((item) => (
+                {t.education.items.map((item) => (
                   <div className="workeduc-content" key={`${item.period}-${item.title}`}>
                     <span className="year">
                       <i className="bx bxs-calendar" />
@@ -314,16 +190,17 @@ export default function App() {
             </div>
           </section>
 
+          {/* ── Page 3 / 4: Work Experience + Project I ── */}
           <section
             className={`book-page page-right ${isTurned('turn-2') ? 'turn' : ''}`}
             id="turn-2"
             style={{ zIndex: pageZIndices['turn-2'] }}
           >
             <div className="page-front">
-              <h1 className="title">Work Experience</h1>
+              <h1 className="title">{t.experience.pageTitle}</h1>
 
               <div className="workeduc-box compact-experience">
-                {experiences.map((item) => (
+                {t.experience.items.map((item) => (
                   <div className="workeduc-content" key={`${item.period}-${item.role}`}>
                     <span className="year">
                       <i className="bx bxs-calendar" />
@@ -342,19 +219,18 @@ export default function App() {
             </div>
 
             <div className="page-back">
-              <h1 className="title">Project Details I</h1>
+              <h1 className="title">{t.projects.titles[0]}</h1>
 
               <div className="portfolio-box project-details-page">
-                {workplaceProjectPages[0].map((project) => (
+                {[t.projects.items[0]].map((project) => (
                   <div className="work-project-card" key={project.title}>
                     <div className="info-box compact-info-box">
                       <div className="info-title">
                         <h3>{project.title}</h3>
                       </div>
-                      <p>Tech Used:</p>
+                      <p>{t.projects.techUsed}</p>
                       <p>{project.stack}</p>
                     </div>
-
                     <div className="project-details-list">
                       {project.details.map((detail) => (
                         <div className="project-detail-item" key={detail}>
@@ -374,25 +250,25 @@ export default function App() {
             </div>
           </section>
 
+          {/* ── Page 5 / 6: Project II + III ── */}
           <section
             className={`book-page page-right ${isTurned('turn-3') ? 'turn' : ''}`}
             id="turn-3"
             style={{ zIndex: pageZIndices['turn-3'] }}
           >
             <div className="page-front">
-              <h1 className="title">Project Details II</h1>
+              <h1 className="title">{t.projects.titles[1]}</h1>
 
               <div className="portfolio-box project-details-page">
-                {workplaceProjectPages[1].map((project) => (
+                {[t.projects.items[1]].map((project) => (
                   <div className="work-project-card" key={project.title}>
                     <div className="info-box compact-info-box">
                       <div className="info-title">
                         <h3>{project.title}</h3>
                       </div>
-                      <p>Tech Used:</p>
+                      <p>{t.projects.techUsed}</p>
                       <p>{project.stack}</p>
                     </div>
-
                     <div className="project-details-list">
                       {project.details.map((detail) => (
                         <div className="project-detail-item" key={detail}>
@@ -412,19 +288,18 @@ export default function App() {
             </div>
 
             <div className="page-back">
-              <h1 className="title">Project Details III</h1>
+              <h1 className="title">{t.projects.titles[2]}</h1>
 
               <div className="portfolio-box project-details-page">
-                {workplaceProjectPages[2].map((project) => (
+                {[t.projects.items[2]].map((project) => (
                   <div className="work-project-card" key={project.title}>
                     <div className="info-box compact-info-box">
                       <div className="info-title">
                         <h3>{project.title}</h3>
                       </div>
-                      <p>Tech Used:</p>
+                      <p>{t.projects.techUsed}</p>
                       <p>{project.stack}</p>
                     </div>
-
                     <div className="project-details-list">
                       {project.details.map((detail) => (
                         <div className="project-detail-item" key={detail}>
@@ -444,25 +319,25 @@ export default function App() {
             </div>
           </section>
 
+          {/* ── Page 7 / 8: Project IV + Own Projects ── */}
           <section
             className={`book-page page-right ${isTurned('turn-4') ? 'turn' : ''}`}
             id="turn-4"
             style={{ zIndex: pageZIndices['turn-4'] }}
           >
             <div className="page-front">
-              <h1 className="title">Project Details IV</h1>
+              <h1 className="title">{t.projects.titles[3]}</h1>
 
               <div className="portfolio-box project-details-page">
-                {workplaceProjectPages[3].map((project) => (
+                {[t.projects.items[3]].map((project) => (
                   <div className="work-project-card" key={project.title}>
                     <div className="info-box compact-info-box">
                       <div className="info-title">
                         <h3>{project.title}</h3>
                       </div>
-                      <p>Tech Used:</p>
+                      <p>{t.projects.techUsed}</p>
                       <p>{project.stack}</p>
                     </div>
-
                     <div className="project-details-list">
                       {project.details.map((detail) => (
                         <div className="project-detail-item" key={detail}>
@@ -482,28 +357,18 @@ export default function App() {
             </div>
 
             <div className="page-back">
-              <h1 className="title">Own Projects</h1>
+              <h1 className="title">{t.ownProjects.pageTitle}</h1>
 
               <div className="portfolio-box own-projects-page">
-                {ownProjects.map((project) => (
+                {t.ownProjects.items.map((project) => (
                   <div className="own-project-card" key={project.title}>
                     <div className="img-box project-preview small-preview">
                       <div className="preview-window">
-                        <div className="preview-bar">
-                          <span />
-                          <span />
-                          <span />
-                        </div>
-                        <div className="preview-content">
-                          <div className="preview-sidebar" />
-                          <div className="preview-main">
-                            <div className="preview-card large" />
-                            <div className="preview-row">
-                              <div className="preview-card" />
-                              <div className="preview-card" />
-                            </div>
-                          </div>
-                        </div>
+                        <img
+                          src="/petshop.png"
+                          alt="Pet Commerce Website"
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }}
+                        />
                       </div>
                     </div>
 
@@ -511,10 +376,10 @@ export default function App() {
                       <div className="info-title">
                         <h3>{project.title}</h3>
                         <a href={project.link} target="_blank" rel="noreferrer">
-                          Live Preview <i className="bx bx-link-external" />
+                          {t.ownProjects.livePreview} <i className="bx bx-link-external" />
                         </a>
                       </div>
-                      <p>Tech Used:</p>
+                      <p>{t.ownProjects.techUsed}</p>
                       <p>{project.stack}</p>
                       <p>{project.description}</p>
                     </div>
@@ -540,29 +405,27 @@ export default function App() {
             </div>
           </section>
 
+          {/* ── Page 9 / 10: Contact + End ── */}
           <section
             className={`book-page page-right ${isTurned('turn-5') ? 'turn' : ''}`}
             id="turn-5"
             style={{ zIndex: pageZIndices['turn-5'] }}
           >
             <div className="page-front">
-              <h1 className="title">Contact</h1>
+              <h1 className="title">{t.contact.pageTitle}</h1>
 
               <div className="contact-box simple-contact clean-contact-page">
                 <div className="contact-card">
-                  <h3>Let&apos;s build something useful.</h3>
-                  <p>
-                    I enjoy backend-heavy systems, integration work and product-focused web applications with clear
-                    business value.
-                  </p>
-                  <a className="contact-link" href={`mailto:${profile.email}`}>
-                    {profile.email}
+                  <h3>{t.contact.heading}</h3>
+                  <p>{t.contact.text}</p>
+                  <a className="contact-link" href={`mailto:${t.profile.email}`}>
+                    {t.profile.email}
                   </a>
-                  <a className="contact-link" href={profile.linkedin} target="_blank" rel="noreferrer">
-                    LinkedIn Profile
+                  <a className="contact-link" href={t.profile.linkedin} target="_blank" rel="noreferrer">
+                    {t.contact.linkedin}
                   </a>
-                  <a className="contact-link" href={profile.github} target="_blank" rel="noreferrer">
-                    GitHub Profile
+                  <a className="contact-link" href={t.profile.github} target="_blank" rel="noreferrer">
+                    {t.contact.github}
                   </a>
                 </div>
               </div>
@@ -574,18 +437,18 @@ export default function App() {
             </div>
 
             <div className="page-back">
-              <h1 className="title">End</h1>
+              <h1 className="title">{t.end.pageTitle}</h1>
 
               <div className="contact-box simple-contact clean-contact-page">
                 <div className="contact-card">
-                  <h3>Thanks for reading.</h3>
-                  <p>Backend systems, integrations and product-focused development.</p>
+                  <h3>{t.end.heading}</h3>
+                  <p>{t.end.text}</p>
                 </div>
               </div>
 
               <span className="number-page">10</span>
               <button className="back-profile" type="button" onClick={backToProfile}>
-                <p>Profile</p>
+                <p>{lang === 'tr' ? 'Profil' : 'Profile'}</p>
                 <i className="bx bxs-user" />
               </button>
             </div>
