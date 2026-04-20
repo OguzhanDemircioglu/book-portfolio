@@ -37,9 +37,8 @@ export default function App() {
     const second = window.setTimeout(() => setTurnedPages([]), 950)
     const third = window.setTimeout(() => setCoverHidden(true), 1300)
     timeoutIds.current.push(first, second, third)
-
     return () => {
-      timeoutIds.current.forEach((timeoutId) => window.clearTimeout(timeoutId))
+      timeoutIds.current.forEach((id) => window.clearTimeout(id))
       timeoutIds.current = []
     }
   }, [])
@@ -48,35 +47,32 @@ export default function App() {
 
   const togglePage = (id: RightPageId) => {
     if (isTurned(id)) {
-      setPageZIndices((current) => ({ ...current, [id]: baseZIndices[id] }))
-      const timeoutId = window.setTimeout(() => {
-        setTurnedPages((current) => current.filter((item) => item !== id))
+      setPageZIndices((cur) => ({ ...cur, [id]: baseZIndices[id] }))
+      const tid = window.setTimeout(() => {
+        setTurnedPages((cur) => cur.filter((item) => item !== id))
       }, 30)
-      timeoutIds.current.push(timeoutId)
+      timeoutIds.current.push(tid)
       return
     }
-
-    setTurnedPages((current) => [...current, id])
-    const timeoutId = window.setTimeout(() => {
-      setPageZIndices((current) => ({ ...current, [id]: turnedZIndices[id] }))
+    setTurnedPages((cur) => [...cur, id])
+    const tid = window.setTimeout(() => {
+      setPageZIndices((cur) => ({ ...cur, [id]: turnedZIndices[id] }))
     }, 950)
-    timeoutIds.current.push(timeoutId)
+    timeoutIds.current.push(tid)
   }
 
   const openContact = () => {
     setTurnedPages([...pageIds])
-    const timeoutId = window.setTimeout(() => {
+    const tid = window.setTimeout(() => {
       setPageZIndices(turnedZIndices)
     }, 950)
-    timeoutIds.current.push(timeoutId)
+    timeoutIds.current.push(tid)
   }
 
   const backToProfile = () => {
     setPageZIndices(baseZIndices)
-    const timeoutId = window.setTimeout(() => {
-      setTurnedPages([])
-    }, 30)
-    timeoutIds.current.push(timeoutId)
+    const tid = window.setTimeout(() => setTurnedPages([]), 30)
+    timeoutIds.current.push(tid)
   }
 
   const toggleLang = () => setLang((l) => (l === 'en' ? 'tr' : 'en'))
@@ -94,7 +90,7 @@ export default function App() {
         <div className={`cover cover-right ${coverOpen ? 'turn' : ''} ${coverHidden ? 'cover-hidden' : ''}`} />
 
         <div className="book">
-          {/* ── Profile (left page) ── */}
+          {/* ── Profile (left static page) ── */}
           <section className="book-page page-left">
             <div className="profile-page">
               <div className="avatar-circle">
@@ -102,7 +98,6 @@ export default function App() {
               </div>
               <h1>{t.profile.name}</h1>
               <h3>{t.profile.title}</h3>
-
               <div className="social-media">
                 <a href={t.profile.github} target="_blank" rel="noreferrer" aria-label="GitHub">
                   <i className="bx bxl-github" />
@@ -114,14 +109,10 @@ export default function App() {
                   <i className="bx bx-envelope" />
                 </a>
               </div>
-
               <p>{t.profile.summary}</p>
               <p className="profile-meta">
-                {t.profile.location}
-                <span>|</span>
-                {t.profile.phone}
+                {t.profile.location}<span>|</span>{t.profile.phone}
               </p>
-
               <div className="btn-box">
                 <a href="/resume.pdf" className="btn" target="_blank" rel="noreferrer">
                   {t.nav.viewCV}
@@ -133,7 +124,7 @@ export default function App() {
             </div>
           </section>
 
-          {/* ── Page 1 / 2: Summary + Education ── */}
+          {/* ── turn-1: Summary / Education ── */}
           <section
             className={`book-page page-right ${isTurned('turn-1') ? 'turn' : ''}`}
             id="turn-1"
@@ -141,10 +132,8 @@ export default function App() {
           >
             <div className="page-front">
               <h1 className="title">{t.summary.pageTitle}</h1>
-
               <div className="summary-page">
                 <p className="summary-text">{t.summary.text}</p>
-
                 <div className="summary-grid">
                   {t.summary.blocks.map((item) => (
                     <div className="summary-card" key={item.label}>
@@ -153,14 +142,10 @@ export default function App() {
                     </div>
                   ))}
                 </div>
-
                 <div className="summary-notes">
-                  {t.summary.notes.map((note) => (
-                    <p key={note}>{note}</p>
-                  ))}
+                  {t.summary.notes.map((note) => <p key={note}>{note}</p>)}
                 </div>
               </div>
-
               <span className="number-page">1</span>
               <button className="nextprev-btn" type="button" onClick={() => togglePage('turn-1')}>
                 <i className="bx bx-chevron-right" />
@@ -169,20 +154,15 @@ export default function App() {
 
             <div className="page-back">
               <h1 className="title">{t.education.pageTitle}</h1>
-
               <div className="workeduc-box">
                 {t.education.items.map((item) => (
                   <div className="workeduc-content" key={`${item.period}-${item.title}`}>
-                    <span className="year">
-                      <i className="bx bxs-calendar" />
-                      {item.period}
-                    </span>
+                    <span className="year"><i className="bx bxs-calendar" />{item.period}</span>
                     <h3>{item.title}</h3>
                     <p>{item.text}</p>
                   </div>
                 ))}
               </div>
-
               <span className="number-page">2</span>
               <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-1')}>
                 <i className="bx bx-chevron-left" />
@@ -190,7 +170,7 @@ export default function App() {
             </div>
           </section>
 
-          {/* ── Page 3 / 4: Work Experience + Project I ── */}
+          {/* ── turn-2: Work Experience / Project I (Global PBX) ── */}
           <section
             className={`book-page page-right ${isTurned('turn-2') ? 'turn' : ''}`}
             id="turn-2"
@@ -198,20 +178,15 @@ export default function App() {
           >
             <div className="page-front">
               <h1 className="title">{t.experience.pageTitle}</h1>
-
               <div className="workeduc-box compact-experience">
                 {t.experience.items.map((item) => (
                   <div className="workeduc-content" key={`${item.period}-${item.role}`}>
-                    <span className="year">
-                      <i className="bx bxs-calendar" />
-                      {item.period}
-                    </span>
+                    <span className="year"><i className="bx bxs-calendar" />{item.period}</span>
                     <h3>{item.role}</h3>
                     <p>{item.text}</p>
                   </div>
                 ))}
               </div>
-
               <span className="number-page">3</span>
               <button className="nextprev-btn" type="button" onClick={() => togglePage('turn-2')}>
                 <i className="bx bx-chevron-right" />
@@ -220,29 +195,7 @@ export default function App() {
 
             <div className="page-back">
               <h1 className="title">{t.projects.titles[0]}</h1>
-
-              <div className="portfolio-box project-details-page">
-                {[t.projects.items[0]].map((project) => (
-                  <div className="work-project-card" key={project.title}>
-                    <div className="info-box compact-info-box">
-                      <div className="info-title">
-                        <h3>{project.title}</h3>
-                      </div>
-                      <p>{t.projects.techUsed}</p>
-                      <p>{project.stack}</p>
-                    </div>
-                    <div className="project-details-list">
-                      {project.details.map((detail) => (
-                        <div className="project-detail-item" key={detail}>
-                          <i className="bx bx-check-circle" />
-                          <span>{detail}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
+              <ProjectCard project={t.projects.items[0]} techUsed={t.projects.techUsed} reasonLeaving={t.projects.reasonLeaving} />
               <span className="number-page">4</span>
               <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-2')}>
                 <i className="bx bx-chevron-left" />
@@ -250,7 +203,7 @@ export default function App() {
             </div>
           </section>
 
-          {/* ── Page 5 / 6: Project II + III ── */}
+          {/* ── turn-3: Project II (Basarsoft) / Project III (KolaySoft) ── */}
           <section
             className={`book-page page-right ${isTurned('turn-3') ? 'turn' : ''}`}
             id="turn-3"
@@ -258,29 +211,7 @@ export default function App() {
           >
             <div className="page-front">
               <h1 className="title">{t.projects.titles[1]}</h1>
-
-              <div className="portfolio-box project-details-page">
-                {[t.projects.items[1]].map((project) => (
-                  <div className="work-project-card" key={project.title}>
-                    <div className="info-box compact-info-box">
-                      <div className="info-title">
-                        <h3>{project.title}</h3>
-                      </div>
-                      <p>{t.projects.techUsed}</p>
-                      <p>{project.stack}</p>
-                    </div>
-                    <div className="project-details-list">
-                      {project.details.map((detail) => (
-                        <div className="project-detail-item" key={detail}>
-                          <i className="bx bx-check-circle" />
-                          <span>{detail}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
+              <ProjectCard project={t.projects.items[1]} techUsed={t.projects.techUsed} reasonLeaving={t.projects.reasonLeaving} />
               <span className="number-page">5</span>
               <button className="nextprev-btn" type="button" onClick={() => togglePage('turn-3')}>
                 <i className="bx bx-chevron-right" />
@@ -289,29 +220,7 @@ export default function App() {
 
             <div className="page-back">
               <h1 className="title">{t.projects.titles[2]}</h1>
-
-              <div className="portfolio-box project-details-page">
-                {[t.projects.items[2]].map((project) => (
-                  <div className="work-project-card" key={project.title}>
-                    <div className="info-box compact-info-box">
-                      <div className="info-title">
-                        <h3>{project.title}</h3>
-                      </div>
-                      <p>{t.projects.techUsed}</p>
-                      <p>{project.stack}</p>
-                    </div>
-                    <div className="project-details-list">
-                      {project.details.map((detail) => (
-                        <div className="project-detail-item" key={detail}>
-                          <i className="bx bx-check-circle" />
-                          <span>{detail}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
+              <ProjectCard project={t.projects.items[2]} techUsed={t.projects.techUsed} reasonLeaving={t.projects.reasonLeaving} />
               <span className="number-page">6</span>
               <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-3')}>
                 <i className="bx bx-chevron-left" />
@@ -319,7 +228,7 @@ export default function App() {
             </div>
           </section>
 
-          {/* ── Page 7 / 8: Project IV + Own Projects ── */}
+          {/* ── turn-4: Project IV (Etiya) / Project V (Ericsson) ── */}
           <section
             className={`book-page page-right ${isTurned('turn-4') ? 'turn' : ''}`}
             id="turn-4"
@@ -327,29 +236,7 @@ export default function App() {
           >
             <div className="page-front">
               <h1 className="title">{t.projects.titles[3]}</h1>
-
-              <div className="portfolio-box project-details-page">
-                {[t.projects.items[3]].map((project) => (
-                  <div className="work-project-card" key={project.title}>
-                    <div className="info-box compact-info-box">
-                      <div className="info-title">
-                        <h3>{project.title}</h3>
-                      </div>
-                      <p>{t.projects.techUsed}</p>
-                      <p>{project.stack}</p>
-                    </div>
-                    <div className="project-details-list">
-                      {project.details.map((detail) => (
-                        <div className="project-detail-item" key={detail}>
-                          <i className="bx bx-check-circle" />
-                          <span>{detail}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
+              <ProjectCard project={t.projects.items[3]} techUsed={t.projects.techUsed} reasonLeaving={t.projects.reasonLeaving} />
               <span className="number-page">7</span>
               <button className="nextprev-btn" type="button" onClick={() => togglePage('turn-4')}>
                 <i className="bx bx-chevron-right" />
@@ -357,8 +244,34 @@ export default function App() {
             </div>
 
             <div className="page-back">
-              <h1 className="title">{t.ownProjects.pageTitle}</h1>
+              <h1 className="title">{t.skills.pageTitle}</h1>
+              <div className="skills-page">
+                {t.skills.items.map((item) => (
+                  <div className="skill-row" key={item.category}>
+                    <span className="skill-cat">{item.category}</span>
+                    <span className="skill-val">{item.value}</span>
+                  </div>
+                ))}
+                <div className="skill-row skill-lang-row">
+                  <span className="skill-cat">{t.skills.language.label}</span>
+                  <span className="skill-val">{t.skills.language.value}</span>
+                </div>
+              </div>
+              <span className="number-page">8</span>
+              <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-4')}>
+                <i className="bx bx-chevron-left" />
+              </button>
+            </div>
+          </section>
 
+          {/* ── turn-5: Own Projects / Contact ── */}
+          <section
+            className={`book-page page-right ${isTurned('turn-5') ? 'turn' : ''}`}
+            id="turn-5"
+            style={{ zIndex: pageZIndices['turn-5'] }}
+          >
+            <div className="page-front">
+              <h1 className="title">{t.ownProjects.pageTitle}</h1>
               <div className="portfolio-box own-projects-page">
                 {t.ownProjects.items.map((project) => (
                   <div className="own-project-card" key={project.title}>
@@ -371,7 +284,6 @@ export default function App() {
                         />
                       </div>
                     </div>
-
                     <div className="info-box compact-info-box">
                       <div className="info-title">
                         <h3>{project.title}</h3>
@@ -383,7 +295,6 @@ export default function App() {
                       <p>{project.stack}</p>
                       <p>{project.description}</p>
                     </div>
-
                     <div className="project-details-list">
                       {project.details.map((detail) => (
                         <div className="project-detail-item" key={detail}>
@@ -392,28 +303,18 @@ export default function App() {
                         </div>
                       ))}
                     </div>
-
                     <p className="own-project-note">{project.note}</p>
                   </div>
                 ))}
               </div>
-
-              <span className="number-page">8</span>
-              <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-4')}>
-                <i className="bx bx-chevron-left" />
+              <span className="number-page">9</span>
+              <button className="nextprev-btn" type="button" onClick={() => togglePage('turn-5')}>
+                <i className="bx bx-chevron-right" />
               </button>
             </div>
-          </section>
 
-          {/* ── Page 9 / 10: Contact + End ── */}
-          <section
-            className={`book-page page-right ${isTurned('turn-5') ? 'turn' : ''}`}
-            id="turn-5"
-            style={{ zIndex: pageZIndices['turn-5'] }}
-          >
-            <div className="page-front">
+            <div className="page-back">
               <h1 className="title">{t.contact.pageTitle}</h1>
-
               <div className="contact-box simple-contact clean-contact-page">
                 <div className="contact-card">
                   <h3>{t.contact.heading}</h3>
@@ -429,23 +330,6 @@ export default function App() {
                   </a>
                 </div>
               </div>
-
-              <span className="number-page">9</span>
-              <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-4')}>
-                <i className="bx bx-chevron-left" />
-              </button>
-            </div>
-
-            <div className="page-back">
-              <h1 className="title">{t.end.pageTitle}</h1>
-
-              <div className="contact-box simple-contact clean-contact-page">
-                <div className="contact-card">
-                  <h3>{t.end.heading}</h3>
-                  <p>{t.end.text}</p>
-                </div>
-              </div>
-
               <span className="number-page">10</span>
               <button className="back-profile" type="button" onClick={backToProfile}>
                 <p>{lang === 'tr' ? 'Profil' : 'Profile'}</p>
@@ -456,5 +340,48 @@ export default function App() {
         </div>
       </div>
     </main>
+  )
+}
+
+// ── Reusable project card component ──
+type ProjectItem = {
+  title: string
+  company: string
+  period: string
+  tags: string[]
+  details: string[]
+  note: string
+}
+
+function ProjectCard({
+  project
+}: {
+  project: ProjectItem
+  techUsed: string
+  reasonLeaving: string
+}) {
+  return (
+    <div className="work-project-card">
+      <div className="project-card-header">
+        <h3>{project.title}</h3>
+        <span className="project-company">{project.company} · {project.period}</span>
+      </div>
+
+      <div className="tech-tags">
+        {project.tags.map((tag) => (
+          <span className="tech-tag" key={tag}>{tag}</span>
+        ))}
+      </div>
+
+      <div className="project-details-list">
+        {project.details.map((detail) => (
+          <div className="project-detail-item" key={detail}>
+            <i className="bx bx-check-circle" />
+            <span>{detail}</span>
+          </div>
+        ))}
+      </div>
+
+    </div>
   )
 }
