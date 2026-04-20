@@ -6,7 +6,8 @@
       "mcp__3cc9b439-da94-41b8-bd9d-1e608aac6c3a__check_domain_availability_and_price",
       "WebSearch",
       "WebFetch(domain:www.cloudflare.com)",
-      "WebFetch(domain:cfdomainpricing.com)"
+      "WebFetch(domain:cfdomainpricing.com)",
+      "mcp__cloudflare__execute"
     ]
   }
 }
