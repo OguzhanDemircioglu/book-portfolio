@@ -835,8 +835,15 @@ button {
   border-color: rgba(59, 166, 255, 0.7);
 }
 
+.lang-switch h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+}
+
 .lang-active {
-  color: var(--main-color);
+  color: #e03e3e;
 }
 
 .lang-divider {
