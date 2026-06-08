@@ -981,9 +981,36 @@ button {
   opacity: 0.8;
 }
 
+.ps-idea-box {
+  border: var(--border);
+  border-left: 2.5px solid var(--main-color);
+  border-radius: 0.55rem;
+  background: rgba(59, 166, 255, 0.06);
+  padding: 0.42rem 0.6rem 0.5rem;
+}
+
+.ps-idea-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--main-color);
+  margin-bottom: 0.18rem;
+}
+
+.ps-idea-text {
+  font-size: 0.73rem;
+  line-height: 1.42;
+  color: var(--text-color);
+}
+
 .ps-screenshots-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 0.45rem;
 }
 
@@ -994,7 +1021,7 @@ button {
 }
 
 .ps-mini-shot {
-  height: 5rem;
+  height: 8rem;
   border-radius: 0.5rem;
   border: var(--border);
   overflow: hidden;
@@ -1015,6 +1042,54 @@ button {
   color: var(--second-text-color);
   font-weight: 700;
   font-family: "Space Grotesk", sans-serif;
+}
+
+/* ── DriverMesh portrait phone screenshots (page 10) ── */
+.dm-screenshots-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.dm-phone-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.dm-phone-shot {
+  height: 6rem;
+  aspect-ratio: 1080 / 2340;
+  border-radius: 0.9rem;
+  border: var(--border);
+  overflow: hidden;
+  background: #0a0e1f;
+  box-shadow: 0 6px 18px rgba(10, 14, 31, 0.18);
+}
+
+.dm-phone-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+/* Chatbot shown as the bare robot (no phone frame) */
+.dm-chatbot-shot {
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dm-chatbot-shot img {
+  height: 85%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 6px 14px rgba(91, 127, 255, 0.28));
 }
 
 .ps-features-grid {
@@ -1083,27 +1158,81 @@ button {
 
 /* ── PetStockPro Architecture (page 9) ── */
 .petstockpro-tech-page {
-  margin-top: 0.7rem;
+  margin-top: 0.65rem;
 }
 
-.ps-tech-tags {
-  margin-bottom: 0.7rem;
-}
-
-.ps-arch-title {
+.ps-section-label {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 0.83rem;
-  color: var(--text-color);
-  margin-bottom: 0.42rem;
+  font-size: 0.75rem;
   font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 0.38rem;
+  margin-top: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-.ps-arch-list {
+.ps-section-label:first-child {
+  margin-top: 0;
+}
+
+.ps-stack-layers {
+  display: grid;
+  gap: 0.28rem;
+  margin-bottom: 0.1rem;
+}
+
+.ps-stack-row {
+  display: grid;
+  grid-template-columns: 5.2rem 1fr;
+  gap: 0.45rem;
+  align-items: baseline;
+  padding: 0.3rem 0.55rem;
+  border: var(--border);
+  border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.38);
+}
+
+.ps-stack-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--main-color);
+  font-family: "Space Grotesk", sans-serif;
+  white-space: nowrap;
+}
+
+.ps-stack-value {
+  font-size: 0.7rem;
+  line-height: 1.38;
+  color: var(--text-color);
+}
+
+.ps-highlights-list {
+  display: grid;
   gap: 0.3rem;
 }
 
-.ps-arch-list .project-detail-item {
-  padding: 0.42rem 0.6rem;
+.ps-highlight-item {
+  display: flex;
+  gap: 0.35rem;
+  align-items: flex-start;
+  padding: 0.32rem 0.55rem;
+  border: var(--border);
+  border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.ps-highlight-item i {
+  color: var(--main-color);
+  font-size: 0.82rem;
+  margin-top: 0.05rem;
+  flex-shrink: 0;
+}
+
+.ps-highlight-item span {
+  font-size: 0.69rem;
+  line-height: 1.38;
+  color: var(--text-color);
 }
 
 .ps-live-row {
@@ -1133,6 +1262,86 @@ button {
 
 .ps-live-url:hover {
   opacity: 0.8;
+}
+
+/* ── Pages 8-9 ONLY: slightly larger PetStockPro text.
+   Scoped by page section id (#turn-4 back = p8, #turn-5 front = p9) because the
+   DriverMesh pages 10-11 reuse the same .petstockpro-* wrapper class. ── */
+#turn-4 .page-back .ps-project-title { font-size: 1.05rem; }
+#turn-4 .page-back .ps-subtitle { font-size: 0.81rem; }
+#turn-4 .page-back .ps-live-link { font-size: 0.8rem; }
+#turn-4 .page-back .ps-idea-label { font-size: 0.7rem; }
+#turn-4 .page-back .ps-idea-text { font-size: 0.79rem; }
+#turn-4 .page-back .ps-mini-label { font-size: 0.72rem; }
+#turn-4 .page-back .ps-col-title { font-size: 0.78rem; }
+#turn-4 .page-back .ps-feature-item span { font-size: 0.77rem; }
+#turn-4 .page-back .ps-feature-item i { font-size: 0.81rem; }
+
+#turn-5 .page-front .ps-section-label { font-size: 0.8rem; }
+#turn-5 .page-front .ps-stack-label { font-size: 0.73rem; }
+#turn-5 .page-front .ps-stack-value { font-size: 0.76rem; }
+#turn-5 .page-front .ps-highlight-item span { font-size: 0.75rem; }
+#turn-5 .page-front .ps-highlight-item i { font-size: 0.87rem; }
+#turn-5 .page-front .ps-live-label { font-size: 0.8rem; }
+#turn-5 .page-front .ps-live-url { font-size: 0.82rem; }
+
+/* ── Pages 10-11 ONLY: larger DriverMesh text.
+   Scoped by section id (#turn-5 back = p10, #turn-6 front = p11). ── */
+#turn-5 .page-back .ps-project-title { font-size: 1.05rem; }
+#turn-5 .page-back .ps-subtitle { font-size: 0.81rem; }
+#turn-5 .page-back .ps-idea-label { font-size: 0.7rem; }
+#turn-5 .page-back .ps-idea-text { font-size: 0.79rem; }
+#turn-5 .page-back .ps-mini-label { font-size: 0.72rem; }
+#turn-5 .page-back .ps-col-title { font-size: 0.78rem; }
+#turn-5 .page-back .ps-feature-item span { font-size: 0.77rem; }
+#turn-5 .page-back .ps-feature-item i { font-size: 0.81rem; }
+
+#turn-6 .page-front .ps-section-label { font-size: 0.8rem; }
+#turn-6 .page-front .ps-stack-label { font-size: 0.73rem; }
+#turn-6 .page-front .ps-stack-value { font-size: 0.76rem; }
+#turn-6 .page-front .ps-highlight-item span { font-size: 0.75rem; }
+#turn-6 .page-front .ps-highlight-item i { font-size: 0.87rem; }
+#turn-6 .page-front .ps-live-label { font-size: 0.8rem; }
+#turn-6 .page-front .ps-live-url { font-size: 0.82rem; }
+
+/* Tech pages 9 & 11 — tighten spacing so the larger text + extra decisions fit without overflow */
+#turn-5 .page-front .ps-stack-row,
+#turn-6 .page-front .ps-stack-row { padding-top: 0.2rem; padding-bottom: 0.2rem; }
+#turn-5 .page-front .ps-stack-layers,
+#turn-6 .page-front .ps-stack-layers { gap: 0.18rem; }
+#turn-5 .page-front .ps-highlight-item,
+#turn-6 .page-front .ps-highlight-item { padding-top: 0.22rem; padding-bottom: 0.22rem; }
+#turn-5 .page-front .ps-highlights-list,
+#turn-6 .page-front .ps-highlights-list { gap: 0.2rem; }
+#turn-5 .page-front .ps-section-label,
+#turn-6 .page-front .ps-section-label { margin-top: 0.45rem; margin-bottom: 0.28rem; }
+#turn-5 .page-front .ps-section-label:first-child,
+#turn-6 .page-front .ps-section-label:first-child { margin-top: 0; }
+#turn-5 .page-front .ps-live-row,
+#turn-6 .page-front .ps-live-row { margin-top: 0.4rem; padding-top: 0.35rem; }
+
+/* ── Placeholder page (reserved for DriverMesh) ── */
+.placeholder-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 0.7rem;
+  opacity: 0.55;
+}
+
+.placeholder-icon {
+  font-size: 1.9rem;
+  color: var(--main-color);
+}
+
+.placeholder-note {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--second-text-color);
 }
 
 /* ── End page ── */

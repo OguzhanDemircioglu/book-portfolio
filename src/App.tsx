@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import { translations, type Lang } from './translations'
 
-type RightPageId = 'turn-1' | 'turn-2' | 'turn-3' | 'turn-4' | 'turn-5' | 'turn-6'
+type RightPageId = 'turn-1' | 'turn-2' | 'turn-3' | 'turn-4' | 'turn-5' | 'turn-6' | 'turn-7'
 
 function detectLang(): Lang {
   const lang = navigator.language || ''
@@ -10,7 +10,7 @@ function detectLang(): Lang {
 }
 
 export default function App() {
-  const pageIds: RightPageId[] = ['turn-1', 'turn-2', 'turn-3', 'turn-4', 'turn-5', 'turn-6']
+  const pageIds: RightPageId[] = ['turn-1', 'turn-2', 'turn-3', 'turn-4', 'turn-5', 'turn-6', 'turn-7']
   const [turnedPages, setTurnedPages] = useState<RightPageId[]>(pageIds)
   const [coverOpen, setCoverOpen] = useState(false)
   const [coverHidden, setCoverHidden] = useState(false)
@@ -62,7 +62,7 @@ export default function App() {
   }
 
   const openContact = () => {
-    const contactTurns: RightPageId[] = ['turn-1', 'turn-2', 'turn-3', 'turn-4', 'turn-5']
+    const contactTurns: RightPageId[] = ['turn-1', 'turn-2', 'turn-3', 'turn-4', 'turn-5', 'turn-6']
     setTurnedPages(contactTurns)
     const tid = window.setTimeout(() => {
       setPageZIndices((cur) => ({
@@ -72,6 +72,7 @@ export default function App() {
         'turn-3': turnedZIndices['turn-3'],
         'turn-4': turnedZIndices['turn-4'],
         'turn-5': turnedZIndices['turn-5'],
+        'turn-6': turnedZIndices['turn-6'],
       }))
     }, 950)
     timeoutIds.current.push(tid)
@@ -260,23 +261,33 @@ export default function App() {
                     <h2 className="ps-project-title">{t.petstockproOverview.projectTitle}</h2>
                     <p className="ps-subtitle">{t.petstockproOverview.subtitle}</p>
                   </div>
-                  <a href={t.petstockproOverview.link} target="_blank" rel="noreferrer" className="ps-live-link">
-                    {t.petstockproOverview.livePreview} <i className="bx bx-link-external" />
-                  </a>
+                </div>
+
+                <div className="ps-idea-box">
+                  <span className="ps-idea-label">
+                    <i className="bx bxs-bulb" /> {t.petstockproOverview.ideaTitle}
+                  </span>
+                  <p className="ps-idea-text">{t.petstockproOverview.idea}</p>
                 </div>
 
                 <div className="ps-screenshots-row">
                   <div className="ps-mini-shot-wrap">
                     <div className="ps-mini-shot">
-                      <img src="/ps-dashboard.png" alt="Admin Panel" />
+                      <img src="/ps-dashboard1.png" alt="Admin Panel" />
                     </div>
                     <span className="ps-mini-label">{t.petstockproOverview.adminScreenLabel}</span>
                   </div>
                   <div className="ps-mini-shot-wrap">
                     <div className="ps-mini-shot">
-                      <img src="/ps-storefront.png" alt="Vitrin" />
+                      <img src="/ps-storefront1.png" alt="Vitrin" />
                     </div>
                     <span className="ps-mini-label">{t.petstockproOverview.vitrinScreenLabel}</span>
+                  </div>
+                  <div className="ps-mini-shot-wrap">
+                    <div className="ps-mini-shot">
+                      <img src="/ps-chatBot1.png" alt="Vitrin" />
+                    </div>
+                    <span className="ps-mini-label">Chatbot</span>
                   </div>
                 </div>
 
@@ -301,12 +312,6 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="ps-stats-row">
-                  {t.petstockproOverview.stats.map((s) => (
-                    <span className="ps-stat-badge" key={s}>{s}</span>
-                  ))}
-                </div>
-
               </div>
               <span className="number-page">8</span>
               <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-4')}>
@@ -324,19 +329,23 @@ export default function App() {
             <div className="page-front">
               <h1 className="title">{t.petstockproTech.pageTitle}</h1>
               <div className="petstockpro-tech-page">
-                <div className="tech-tags ps-tech-tags">
-                  {t.petstockproTech.tags.map((tag) => (
-                    <span className="tech-tag" key={tag}>{tag}</span>
+
+                <p className="ps-section-label">{t.petstockproTech.stackTitle}</p>
+                <div className="ps-stack-layers">
+                  {t.petstockproTech.stackLayers.map((layer) => (
+                    <div className="ps-stack-row" key={layer.label}>
+                      <span className="ps-stack-label">{layer.label}</span>
+                      <span className="ps-stack-value">{layer.value}</span>
+                    </div>
                   ))}
                 </div>
 
-                <h4 className="ps-arch-title">{t.petstockproTech.archTitle}</h4>
-
-                <div className="project-details-list ps-arch-list">
-                  {t.petstockproTech.architecture.map((item) => (
-                    <div className="project-detail-item" key={item}>
+                <p className="ps-section-label">{t.petstockproTech.highlightsTitle}</p>
+                <div className="ps-highlights-list">
+                  {t.petstockproTech.highlights.map((h) => (
+                    <div className="ps-highlight-item" key={h}>
                       <i className="bx bx-check-circle" />
-                      <span>{item}</span>
+                      <span>{h}</span>
                     </div>
                   ))}
                 </div>
@@ -349,13 +358,136 @@ export default function App() {
                     rel="noreferrer"
                     className="ps-live-url"
                   >
-                    {t.petstockproTech.link.replace('https://', '')}
+                    petstockpro.com
                     <i className="bx bx-link-external" />
                   </a>
                 </div>
               </div>
               <span className="number-page">9</span>
               <button className="nextprev-btn" type="button" onClick={() => togglePage('turn-5')}>
+                <i className="bx bx-chevron-right" />
+              </button>
+            </div>
+
+            <div className="page-back">
+              <h1 className="title">{t.drivermeshOverview.pageTitle}</h1>
+              <div className="petstockpro-overview-page">
+
+                <div className="ps-header-row">
+                  <div>
+                    <h2 className="ps-project-title">{t.drivermeshOverview.projectTitle}</h2>
+                    <p className="ps-subtitle">{t.drivermeshOverview.subtitle}</p>
+                  </div>
+                </div>
+
+                <div className="ps-idea-box">
+                  <span className="ps-idea-label">
+                    <i className="bx bxs-bulb" /> {t.drivermeshOverview.ideaTitle}
+                  </span>
+                  <p className="ps-idea-text">{t.drivermeshOverview.idea}</p>
+                </div>
+
+                <div className="dm-screenshots-row">
+                  <div className="dm-phone-wrap">
+                    <div className="dm-phone-shot">
+                      <img src="/dm-cover.jpg" alt="DriverMesh Cover" />
+                    </div>
+                    <span className="ps-mini-label">{t.drivermeshOverview.coverScreenLabel}</span>
+                  </div>
+                  <div className="dm-phone-wrap">
+                    <div className="dm-phone-shot">
+                      <img src="/dm-fleetmap.png" alt="Fleet Map" />
+                    </div>
+                    <span className="ps-mini-label">{t.drivermeshOverview.fleetScreenLabel}</span>
+                  </div>
+                  <div className="dm-phone-wrap">
+                    <div className="dm-phone-shot">
+                      <img src="/dm-ride.jpg" alt="Ride App" />
+                    </div>
+                    <span className="ps-mini-label">{t.drivermeshOverview.rideScreenLabel}</span>
+                  </div>
+                  <div className="dm-phone-wrap">
+                    <div className="dm-chatbot-shot">
+                      <img src="/dm-chatbot.png" alt="Chatbot" />
+                    </div>
+                    <span className="ps-mini-label">{t.drivermeshOverview.chatbotScreenLabel}</span>
+                  </div>
+                </div>
+
+                <div className="ps-features-grid">
+                  <div className="ps-feature-col">
+                    <h4 className="ps-col-title">{t.drivermeshOverview.fleetTitle}</h4>
+                    {t.drivermeshOverview.fleetFeatures.map((f) => (
+                      <div className="ps-feature-item" key={f}>
+                        <i className="bx bx-car" />
+                        <span>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="ps-feature-col">
+                    <h4 className="ps-col-title">{t.drivermeshOverview.rideTitle}</h4>
+                    {t.drivermeshOverview.rideFeatures.map((f) => (
+                      <div className="ps-feature-item" key={f}>
+                        <i className="bx bx-navigation" />
+                        <span>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+              <span className="number-page">10</span>
+              <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-5')}>
+                <i className="bx bx-chevron-left" />
+              </button>
+            </div>
+          </section>
+
+          {/* ── turn-6: DriverMesh (placeholder) / Technical Skills ── */}
+          <section
+            className={`book-page page-right ${isTurned('turn-6') ? 'turn' : ''}`}
+            id="turn-6"
+            style={{ zIndex: pageZIndices['turn-6'] }}
+          >
+            <div className="page-front">
+              <h1 className="title">{t.drivermeshTech.pageTitle}</h1>
+              <div className="petstockpro-tech-page">
+
+                <p className="ps-section-label">{t.drivermeshTech.stackTitle}</p>
+                <div className="ps-stack-layers">
+                  {t.drivermeshTech.stackLayers.map((layer) => (
+                    <div className="ps-stack-row" key={layer.label}>
+                      <span className="ps-stack-label">{layer.label}</span>
+                      <span className="ps-stack-value">{layer.value}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="ps-section-label">{t.drivermeshTech.highlightsTitle}</p>
+                <div className="ps-highlights-list">
+                  {t.drivermeshTech.highlights.map((h) => (
+                    <div className="ps-highlight-item" key={h}>
+                      <i className="bx bx-check-circle" />
+                      <span>{h}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="ps-live-row">
+                  <span className="ps-live-label">{t.drivermeshTech.liveLabel}</span>
+                  <a
+                    href={t.drivermeshTech.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="ps-live-url"
+                  >
+                    drivermesh.com
+                    <i className="bx bx-link-external" />
+                  </a>
+                </div>
+              </div>
+              <span className="number-page">11</span>
+              <button className="nextprev-btn" type="button" onClick={() => togglePage('turn-6')}>
                 <i className="bx bx-chevron-right" />
               </button>
             </div>
@@ -374,18 +506,18 @@ export default function App() {
                   <span className="skill-val">{t.skills.language.value}</span>
                 </div>
               </div>
-              <span className="number-page">10</span>
-              <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-5')}>
+              <span className="number-page">12</span>
+              <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-6')}>
                 <i className="bx bx-chevron-left" />
               </button>
             </div>
           </section>
 
-          {/* ── turn-6: Contact / End ── */}
+          {/* ── turn-7: Contact / End ── */}
           <section
-            className={`book-page page-right ${isTurned('turn-6') ? 'turn' : ''}`}
-            id="turn-6"
-            style={{ zIndex: pageZIndices['turn-6'] }}
+            className={`book-page page-right ${isTurned('turn-7') ? 'turn' : ''}`}
+            id="turn-7"
+            style={{ zIndex: pageZIndices['turn-7'] }}
           >
             <div className="page-front">
               <h1 className="title">{t.contact.pageTitle}</h1>
@@ -404,7 +536,7 @@ export default function App() {
                   </a>
                 </div>
               </div>
-              <span className="number-page">11</span>
+              <span className="number-page">13</span>
               <button className="back-profile" type="button" onClick={backToProfile}>
                 <p>{lang === 'tr' ? 'Profil' : 'Profile'}</p>
                 <i className="bx bxs-user" />
@@ -416,7 +548,7 @@ export default function App() {
                 <h1 className="title end-page-title">{t.endPage.pageTitle}</h1>
                 <p className="end-page-text">{t.endPage.text}</p>
               </div>
-              <span className="number-page">12</span>
+              <span className="number-page">14</span>
               <button className="back-profile" type="button" onClick={backToProfile}>
                 <p>{lang === 'tr' ? 'Profil' : 'Profile'}</p>
                 <i className="bx bxs-user" />
