@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import { translations, type Lang } from './translations'
 
-type RightPageId = 'turn-1' | 'turn-2' | 'turn-3' | 'turn-4' | 'turn-5'
+type RightPageId = 'turn-1' | 'turn-2' | 'turn-3' | 'turn-4' | 'turn-5' | 'turn-6'
 
 function detectLang(): Lang {
   const lang = navigator.language || ''
@@ -10,7 +10,7 @@ function detectLang(): Lang {
 }
 
 export default function App() {
-  const pageIds: RightPageId[] = ['turn-1', 'turn-2', 'turn-3', 'turn-4', 'turn-5']
+  const pageIds: RightPageId[] = ['turn-1', 'turn-2', 'turn-3', 'turn-4', 'turn-5', 'turn-6']
   const [turnedPages, setTurnedPages] = useState<RightPageId[]>(pageIds)
   const [coverOpen, setCoverOpen] = useState(false)
   const [coverHidden, setCoverHidden] = useState(false)
@@ -62,9 +62,17 @@ export default function App() {
   }
 
   const openContact = () => {
-    setTurnedPages([...pageIds])
+    const contactTurns: RightPageId[] = ['turn-1', 'turn-2', 'turn-3', 'turn-4', 'turn-5']
+    setTurnedPages(contactTurns)
     const tid = window.setTimeout(() => {
-      setPageZIndices(turnedZIndices)
+      setPageZIndices((cur) => ({
+        ...cur,
+        'turn-1': turnedZIndices['turn-1'],
+        'turn-2': turnedZIndices['turn-2'],
+        'turn-3': turnedZIndices['turn-3'],
+        'turn-4': turnedZIndices['turn-4'],
+        'turn-5': turnedZIndices['turn-5'],
+      }))
     }, 950)
     timeoutIds.current.push(tid)
   }
@@ -228,7 +236,7 @@ export default function App() {
             </div>
           </section>
 
-          {/* ── turn-4: Project IV (Etiya) / Project V (Ericsson) ── */}
+          {/* ── turn-4: Project IV (Etiya) / PetStockPro Overview ── */}
           <section
             className={`book-page page-right ${isTurned('turn-4') ? 'turn' : ''}`}
             id="turn-4"
@@ -239,6 +247,115 @@ export default function App() {
               <ProjectCard project={t.projects.items[3]} techUsed={t.projects.techUsed} reasonLeaving={t.projects.reasonLeaving} />
               <span className="number-page">7</span>
               <button className="nextprev-btn" type="button" onClick={() => togglePage('turn-4')}>
+                <i className="bx bx-chevron-right" />
+              </button>
+            </div>
+
+            <div className="page-back">
+              <h1 className="title">{t.petstockproOverview.pageTitle}</h1>
+              <div className="petstockpro-overview-page">
+
+                <div className="ps-header-row">
+                  <div>
+                    <h2 className="ps-project-title">{t.petstockproOverview.projectTitle}</h2>
+                    <p className="ps-subtitle">{t.petstockproOverview.subtitle}</p>
+                  </div>
+                  <a href={t.petstockproOverview.link} target="_blank" rel="noreferrer" className="ps-live-link">
+                    {t.petstockproOverview.livePreview} <i className="bx bx-link-external" />
+                  </a>
+                </div>
+
+                <div className="ps-screenshots-row">
+                  <div className="ps-mini-shot-wrap">
+                    <div className="ps-mini-shot">
+                      <img src="/ps-dashboard.png" alt="Admin Panel" />
+                    </div>
+                    <span className="ps-mini-label">{t.petstockproOverview.adminScreenLabel}</span>
+                  </div>
+                  <div className="ps-mini-shot-wrap">
+                    <div className="ps-mini-shot">
+                      <img src="/ps-storefront.png" alt="Vitrin" />
+                    </div>
+                    <span className="ps-mini-label">{t.petstockproOverview.vitrinScreenLabel}</span>
+                  </div>
+                </div>
+
+                <div className="ps-features-grid">
+                  <div className="ps-feature-col">
+                    <h4 className="ps-col-title">{t.petstockproOverview.adminTitle}</h4>
+                    {t.petstockproOverview.adminFeatures.map((f) => (
+                      <div className="ps-feature-item" key={f}>
+                        <i className="bx bx-box" />
+                        <span>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="ps-feature-col">
+                    <h4 className="ps-col-title">{t.petstockproOverview.vitrinTitle}</h4>
+                    {t.petstockproOverview.vitrinFeatures.map((f) => (
+                      <div className="ps-feature-item" key={f}>
+                        <i className="bx bx-globe" />
+                        <span>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="ps-stats-row">
+                  {t.petstockproOverview.stats.map((s) => (
+                    <span className="ps-stat-badge" key={s}>{s}</span>
+                  ))}
+                </div>
+
+              </div>
+              <span className="number-page">8</span>
+              <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-4')}>
+                <i className="bx bx-chevron-left" />
+              </button>
+            </div>
+          </section>
+
+          {/* ── turn-5: PetStockPro Architecture / Technical Skills ── */}
+          <section
+            className={`book-page page-right ${isTurned('turn-5') ? 'turn' : ''}`}
+            id="turn-5"
+            style={{ zIndex: pageZIndices['turn-5'] }}
+          >
+            <div className="page-front">
+              <h1 className="title">{t.petstockproTech.pageTitle}</h1>
+              <div className="petstockpro-tech-page">
+                <div className="tech-tags ps-tech-tags">
+                  {t.petstockproTech.tags.map((tag) => (
+                    <span className="tech-tag" key={tag}>{tag}</span>
+                  ))}
+                </div>
+
+                <h4 className="ps-arch-title">{t.petstockproTech.archTitle}</h4>
+
+                <div className="project-details-list ps-arch-list">
+                  {t.petstockproTech.architecture.map((item) => (
+                    <div className="project-detail-item" key={item}>
+                      <i className="bx bx-check-circle" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="ps-live-row">
+                  <span className="ps-live-label">{t.petstockproTech.liveLabel}</span>
+                  <a
+                    href={t.petstockproTech.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="ps-live-url"
+                  >
+                    {t.petstockproTech.link.replace('https://', '')}
+                    <i className="bx bx-link-external" />
+                  </a>
+                </div>
+              </div>
+              <span className="number-page">9</span>
+              <button className="nextprev-btn" type="button" onClick={() => togglePage('turn-5')}>
                 <i className="bx bx-chevron-right" />
               </button>
             </div>
@@ -257,63 +374,20 @@ export default function App() {
                   <span className="skill-val">{t.skills.language.value}</span>
                 </div>
               </div>
-              <span className="number-page">8</span>
-              <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-4')}>
+              <span className="number-page">10</span>
+              <button className="nextprev-btn back" type="button" onClick={() => togglePage('turn-5')}>
                 <i className="bx bx-chevron-left" />
               </button>
             </div>
           </section>
 
-          {/* ── turn-5: Own Projects / Contact ── */}
+          {/* ── turn-6: Contact / End ── */}
           <section
-            className={`book-page page-right ${isTurned('turn-5') ? 'turn' : ''}`}
-            id="turn-5"
-            style={{ zIndex: pageZIndices['turn-5'] }}
+            className={`book-page page-right ${isTurned('turn-6') ? 'turn' : ''}`}
+            id="turn-6"
+            style={{ zIndex: pageZIndices['turn-6'] }}
           >
             <div className="page-front">
-              <h1 className="title">{t.ownProjects.pageTitle}</h1>
-              <div className="portfolio-box own-projects-page">
-                {t.ownProjects.items.map((project) => (
-                  <div className="own-project-card" key={project.title}>
-                    <div className="img-box project-preview small-preview">
-                      <div className="preview-window">
-                        <img
-                          src="/petshop.png"
-                          alt="Pet Commerce Website"
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }}
-                        />
-                      </div>
-                    </div>
-                    <div className="info-box compact-info-box">
-                      <div className="info-title">
-                        <h3>{project.title}</h3>
-                        <a href={project.link} target="_blank" rel="noreferrer">
-                          {t.ownProjects.livePreview} <i className="bx bx-link-external" />
-                        </a>
-                      </div>
-                      <p>{t.ownProjects.techUsed}</p>
-                      <p>{project.stack}</p>
-                      <p>{project.description}</p>
-                    </div>
-                    <div className="project-details-list">
-                      {project.details.map((detail) => (
-                        <div className="project-detail-item" key={detail}>
-                          <i className="bx bx-check-circle" />
-                          <span>{detail}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="own-project-note">{project.note}</p>
-                  </div>
-                ))}
-              </div>
-              <span className="number-page">9</span>
-              <button className="nextprev-btn" type="button" onClick={() => togglePage('turn-5')}>
-                <i className="bx bx-chevron-right" />
-              </button>
-            </div>
-
-            <div className="page-back">
               <h1 className="title">{t.contact.pageTitle}</h1>
               <div className="contact-box simple-contact clean-contact-page">
                 <div className="contact-card">
@@ -330,7 +404,19 @@ export default function App() {
                   </a>
                 </div>
               </div>
-              <span className="number-page">10</span>
+              <span className="number-page">11</span>
+              <button className="back-profile" type="button" onClick={backToProfile}>
+                <p>{lang === 'tr' ? 'Profil' : 'Profile'}</p>
+                <i className="bx bxs-user" />
+              </button>
+            </div>
+
+            <div className="page-back">
+              <div className="end-page-content">
+                <h1 className="title end-page-title">{t.endPage.pageTitle}</h1>
+                <p className="end-page-text">{t.endPage.text}</p>
+              </div>
+              <span className="number-page">12</span>
               <button className="back-profile" type="button" onClick={backToProfile}>
                 <p>{lang === 'tr' ? 'Profil' : 'Profile'}</p>
                 <i className="bx bxs-user" />

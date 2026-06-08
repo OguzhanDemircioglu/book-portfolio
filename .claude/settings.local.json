@@ -7,7 +7,9 @@
       "WebSearch",
       "WebFetch(domain:www.cloudflare.com)",
       "WebFetch(domain:cfdomainpricing.com)",
-      "mcp__cloudflare__execute"
+      "mcp__cloudflare__execute",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)"
     ]
   }
 }

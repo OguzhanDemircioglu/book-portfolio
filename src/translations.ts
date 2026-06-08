@@ -152,6 +152,46 @@ export const translations = {
         },
       ],
     },
+    petstockproOverview: {
+      pageTitle: 'Own Project',
+      projectTitle: 'PetStockPro',
+      subtitle: 'Multi-tenant SaaS for pet shops — stock tracking + public storefront',
+      link: 'https://petstockpro.com',
+      livePreview: 'petstockpro.com',
+      adminScreenLabel: 'Admin Panel',
+      vitrinScreenLabel: 'Vitrin (SEO)',
+      adminTitle: 'Stock Management (B2B)',
+      adminFeatures: [
+        'Products & multi-variant catalog, per-branch stock',
+        'Immutable stock ledger — append-only movements',
+        'Guided stocktake + inter-branch transfers',
+        'Supplier mgmt, low-stock alerts, Excel import/export',
+        'Sales analytics, audit log, AI assistant (RAG)',
+      ],
+      vitrinTitle: 'Vitrin — SEO & Visibility',
+      vitrinFeatures: [
+        'Central pet-shop directory (Google My Business model)',
+        'City/district filter, WhatsApp CTA, geolocation map',
+        'Auto-unpublish on zero stock; community feedback',
+      ],
+      stats: ['1,782 tests', 'Solo built', 'Live in prod'],
+    },
+    petstockproTech: {
+      pageTitle: 'PetStockPro — Architecture',
+      tags: ['Next.js 16', 'React 19', 'TypeScript 5', 'Supabase', 'Drizzle ORM', 'Auth.js v5', 'Cloudflare Workers', 'iyzico', 'Vitest'],
+      archTitle: 'Technical Highlights',
+      architecture: [
+        'Next.js 16 App Router · React 19 · TypeScript 5 strict · Turbopack',
+        'Supabase + Drizzle ORM — 36 tables, 28 migrations, RLS multi-tenant isolation',
+        'Append-only stock ledger — reversal pointers, zero history mutation',
+        'Auth.js v5 + custom 2FA TOTP, brute-force protection, HIBP breach check',
+        'iyzico subscription billing + Nilvera e-Arşiv (Turkish e-invoice per payment)',
+        'RAG AI chatbot — CF Workers AI + Vectorize (LLaMA 3.1 8B + BGE-M3)',
+        '1,782 passing tests — Vitest · Testing Library · Playwright E2E',
+      ],
+      link: 'https://petstockpro.com',
+      liveLabel: 'Live:',
+    },
     skills: {
       pageTitle: 'Technical Skills',
       items: [
@@ -164,27 +204,6 @@ export const translations = {
       ],
       language: { label: 'Language', value: 'English — Upper Intermediate (B2)' },
     },
-    ownProjects: {
-      pageTitle: 'Own Projects',
-      livePreview: 'Live Preview',
-      techUsed: 'Tech Used:',
-      items: [
-        {
-          title: 'Pet Commerce Website',
-          link: 'https://pet-eight-rho.vercel.app',
-          stack: 'React, Vite, Spring Boot, payment flow, admin tools',
-          description:
-            'A product-focused commerce website I am building to sell. It already includes catalog, cart, login, orders, payments and admin-side features.',
-          details: [
-            'Catalog, product detail, cart and order flow',
-            'Login, profile and notification features',
-            'Spring Boot backend with admin operations',
-            'Payment and Telegram notification integration',
-          ],
-          note: 'This project is not only a demo. It has potential to become a reusable starter product for niche stores.',
-        },
-      ],
-    },
     contact: {
       pageTitle: 'Contact',
       heading: "Let's build something useful.",
@@ -192,10 +211,9 @@ export const translations = {
       linkedin: 'LinkedIn Profile',
       github: 'GitHub Profile',
     },
-    end: {
-      pageTitle: 'End',
-      heading: 'Thanks for reading.',
-      text: 'Backend systems, integrations and product-focused development.',
+    endPage: {
+      pageTitle: 'Thanks for reading.',
+      text: 'I build backend-heavy systems, thoughtful integrations and product-focused web applications with real business value. Looking forward to connecting.',
     },
   },
 
@@ -350,6 +368,46 @@ export const translations = {
         },
       ],
     },
+    petstockproOverview: {
+      pageTitle: 'Kendi Projem',
+      projectTitle: 'PetStockPro',
+      subtitle: 'Pet shop\'lara özel çok kiracılı SaaS — stok takibi + vitrin',
+      link: 'https://petstockpro.com',
+      livePreview: 'petstockpro.com',
+      adminScreenLabel: 'Admin Paneli',
+      vitrinScreenLabel: 'Vitrin (SEO)',
+      adminTitle: 'Stok Yönetimi (B2B)',
+      adminFeatures: [
+        'Ürünler & çok variantlı katalog, şube bazlı stok',
+        'Değiştirilemez stok defteri — append-only hareketler',
+        'Rehberli sayım + şubeler arası transfer yönetimi',
+        'Tedarikçi yönetimi, düşük stok uyarısı, Excel aktarım',
+        'Satış analizi, denetim günlüğü, AI asistan (RAG)',
+      ],
+      vitrinTitle: 'Vitrin — SEO & Bilinirlik',
+      vitrinFeatures: [
+        'Merkezi pet shop dizini (Google My Business modeli)',
+        'Şehir/ilçe filtresi, WhatsApp CTA, konum haritası',
+        'Stok sıfırında otomatik yayından kaldırma; topluluk puanı',
+      ],
+      stats: ['1.782 test', 'Solo geliştirildi', 'Productionda aktif'],
+    },
+    petstockproTech: {
+      pageTitle: 'PetStockPro — Mimari',
+      tags: ['Next.js 16', 'React 19', 'TypeScript 5', 'Supabase', 'Drizzle ORM', 'Auth.js v5', 'Cloudflare Workers', 'iyzico', 'Vitest'],
+      archTitle: 'Teknik Öne Çıkanlar',
+      architecture: [
+        'Next.js 16 App Router · React 19 · TypeScript 5 strict · Turbopack',
+        'Supabase + Drizzle ORM — 36 tablo, 28 migrasyon, RLS çok kiracı izolasyonu',
+        'Append-only stok defteri — geri alım göstericileri, geçmiş değiştirilemez',
+        'Auth.js v5 + özel 2FA TOTP, kaba kuvvet koruması, HIBP ihlal kontrolü',
+        'iyzico abonelik ödemesi + Nilvera e-Arşiv (her ödemede e-fatura)',
+        'RAG AI chatbot — CF Workers AI + Vectorize (LLaMA 3.1 8B + BGE-M3)',
+        '1.782 geçen test — Vitest · Testing Library · Playwright E2E',
+      ],
+      link: 'https://petstockpro.com',
+      liveLabel: 'Canlı:',
+    },
     skills: {
       pageTitle: 'Teknik Beceriler',
       items: [
@@ -362,27 +420,6 @@ export const translations = {
       ],
       language: { label: 'Dil', value: 'İngilizce — Orta-Üst Seviye (B2)' },
     },
-    ownProjects: {
-      pageTitle: 'Kendi Projelerim',
-      livePreview: 'Canlı Önizleme',
-      techUsed: 'Kullanılan Teknolojiler:',
-      items: [
-        {
-          title: 'Pet Ticaret Sitesi',
-          link: 'https://pet-eight-rho.vercel.app',
-          stack: 'React, Vite, Spring Boot, ödeme akışı, yönetim araçları',
-          description:
-            'Satmak amacıyla geliştirdiğim ürün odaklı ticaret sitesi. Katalog, sepet, giriş, siparişler, ödemeler ve yönetici özellikleri mevcut.',
-          details: [
-            'Katalog, ürün detayı, sepet ve sipariş akışı',
-            'Giriş, profil ve bildirim özellikleri',
-            'Yönetici işlemleriyle Spring Boot backend',
-            'Ödeme ve Telegram bildirim entegrasyonu',
-          ],
-          note: 'Bu proje yalnızca bir demo değil. Niş mağazalar için yeniden kullanılabilir bir başlangıç ürününe dönüşme potansiyeli taşıyor.',
-        },
-      ],
-    },
     contact: {
       pageTitle: 'İletişim',
       heading: 'Birlikte bir şeyler inşa edelim.',
@@ -390,10 +427,9 @@ export const translations = {
       linkedin: 'LinkedIn Profili',
       github: 'GitHub Profili',
     },
-    end: {
-      pageTitle: 'Son',
-      heading: 'Okuduğunuz için teşekkürler.',
-      text: 'Backend sistemler, entegrasyonlar ve ürün odaklı geliştirme.',
+    endPage: {
+      pageTitle: 'Okuduğunuz için teşekkürler.',
+      text: 'Backend ağırlıklı sistemler, entegrasyon çalışmaları ve gerçek iş değeri olan ürün odaklı web uygulamaları geliştiriyorum. Bağlantı kurmayı dört gözle bekliyorum.',
     },
   },
 }
