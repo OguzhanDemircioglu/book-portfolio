@@ -284,8 +284,8 @@ export default function App() {
                     <span className="ps-mini-label">{t.petstockproOverview.vitrinScreenLabel}</span>
                   </div>
                   <div className="ps-mini-shot-wrap">
-                    <div className="ps-mini-shot">
-                      <img src="/ps-chatBot1.png" alt="Vitrin" />
+                    <div className="ps-mini-shot ps-mini-cat">
+                      <img src="/ps-chatBot1.png" alt="Chatbot" />
                     </div>
                     <span className="ps-mini-label">Chatbot</span>
                   </div>

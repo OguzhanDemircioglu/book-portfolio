@@ -1032,8 +1032,22 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
+  object-position: center;
   display: block;
+}
+
+/* Chatbot cat — shown fully (no crop), frameless mascot */
+.ps-mini-cat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ps-mini-cat img {
+  width: auto;
+  height: 86%;
+  object-fit: contain;
+  transform: none;
 }
 
 .ps-mini-label {
