@@ -743,17 +743,26 @@ button {
 }
 
 @media (max-width: 1100px) {
+  /* Stacked layout: unroll the flip-book into a single readable column.
+     Use block/flex-column sizing (not the centering grid) so the layout
+     fills the viewport width instead of expanding to content max-content. */
   .scene {
-    overflow: auto;
-    align-items: start;
+    display: block;
+    overflow-x: hidden;
+    padding: 1.5rem 1rem;
   }
 
   .wrapper {
     width: 100%;
+    max-width: 40rem;
+    margin: 0 auto;
     height: auto;
-    min-height: 100vh;
+    min-height: 0;
     perspective: none;
     padding: 0;
+    transform: none;
+    /* The intro rotate/scale animation looks broken on a tall stacked column */
+    animation: none;
   }
 
   .cover {
@@ -761,8 +770,10 @@ button {
   }
 
   .book {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
+    width: 100%;
     perspective: none;
   }
 
@@ -772,12 +783,15 @@ button {
   .book-page .page-back {
     position: relative;
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     height: auto;
     transform: none !important;
     backface-visibility: visible;
   }
 
   .book .book-page {
+    display: block;
     min-height: auto;
     padding: 0;
   }
@@ -805,6 +819,19 @@ button {
 
   .skills-box {
     grid-template-columns: 1fr;
+  }
+
+  .profile-page {
+    padding: 2rem 1.5rem;
+  }
+
+  /* Profile summary caps at 28rem for desktop; let it wrap to the column on mobile */
+  .profile-page p {
+    max-width: 100%;
+  }
+
+  .book-page img {
+    max-width: 100%;
   }
 }
 
@@ -1406,5 +1433,44 @@ button {
   .preview-content,
   .preview-row {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ── Stacked-layout project galleries ──
+   Placed after the base petstockpro/drivermesh rules so these size overrides
+   win at equal specificity. Desktop keeps the compact thumbnail strips. */
+@media (max-width: 1100px) {
+  /* PetStockPro: 2-up, larger thumbnails */
+  .ps-screenshots-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+  }
+
+  .ps-mini-shot {
+    height: 9rem;
+  }
+
+  /* DriverMesh: 2x2 grid with the phone shots filling each cell */
+  .dm-screenshots-row {
+    flex-wrap: wrap;
+    gap: 0.9rem 1rem;
+  }
+
+  .dm-phone-wrap {
+    width: calc(50% - 0.5rem);
+  }
+
+  .dm-phone-shot,
+  .dm-chatbot-shot {
+    width: 100%;
+    max-width: 10rem;
+    height: 15rem;
+    aspect-ratio: auto;
+  }
+
+  /* Keep the square chatbot mascot contained/centered in its taller cell */
+  .dm-chatbot-shot img {
+    width: 80%;
+    height: auto;
   }
 }
